@@ -20,7 +20,7 @@ import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import org.koin.androidx.workmanager.dsl.worker
+import org.koin.androidx.workmanager.dsl.workerOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
@@ -59,9 +59,7 @@ val appModule = module {
     }
 
     // worker class
-    worker {
-        FetchJokeWorker(get(), get(), get())
-    }
+    workerOf(::FetchJokeWorker)
 
     // use case
     singleOf(::GetJokeUseCase)
