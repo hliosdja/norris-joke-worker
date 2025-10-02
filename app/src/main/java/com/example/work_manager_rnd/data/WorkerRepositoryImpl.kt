@@ -1,7 +1,6 @@
 package com.example.work_manager_rnd.data
 
 import android.content.Context
-import android.util.Log
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
@@ -19,16 +18,6 @@ class WorkerRepositoryImpl(
     private val workManager = WorkManager.getInstance(context)
 
     override fun executeWork(schedule: Long) = flow {
-        Log.d("JokeSchedule", "work schedule in repo: $schedule")
-        
-//        val workRequest = PeriodicWorkRequestBuilder<FetchJokeWorker>(
-//            repeatInterval = 1,
-//            repeatIntervalTimeUnit = TimeUnit.DAYS,
-//            flexTimeInterval = 2,
-//            flexTimeIntervalUnit = TimeUnit.MINUTES
-//        )
-//            .setInitialDelay(schedule, TimeUnit.MILLISECONDS)
-//            .build()
 
         val workRequest = OneTimeWorkRequestBuilder<FetchJokeWorker>()
             .setInitialDelay(schedule, TimeUnit.MILLISECONDS)

@@ -35,17 +35,11 @@ class JokeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             startJokeWorker(schedule).collect { response ->
                 when (response) {
-                    is WorkResult.Loading -> {
-                        Log.d("JokeViewModel", "updateSchedule: loading")
-                    }
+                    is WorkResult.Loading -> { /* no-op */ }
                     is WorkResult.Success -> {
-
-                        Log.d("JokeViewModel", "updateSchedule: success")
                         _uiState.value = _uiState.value.copy(joke = response.joke.value)
                     }
                     is WorkResult.Error -> {
-
-                        Log.d("JokeViewModel", "updateSchedule: failed")
                         _uiState.value = _uiState.value.copy(joke = response.errorMessage)
                     }
                 }
