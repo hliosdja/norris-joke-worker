@@ -2,6 +2,7 @@ package com.example.work_manager_rnd.di
 
 import com.example.work_manager_rnd.data.JokeRepositoryImpl
 import com.example.work_manager_rnd.data.WorkerRepositoryImpl
+import com.example.work_manager_rnd.data.worker.FetchJokeWorker
 import com.example.work_manager_rnd.domain.repository.JokeRepository
 import com.example.work_manager_rnd.domain.repository.WorkerRepository
 import com.example.work_manager_rnd.domain.usecase.GetJokeUseCase
@@ -19,6 +20,7 @@ import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.androidx.workmanager.dsl.worker
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
@@ -54,6 +56,11 @@ val appModule = module {
                 level = LogLevel.ALL
             }
         }
+    }
+
+    // worker class
+    worker {
+        FetchJokeWorker(get(), get(), get())
     }
 
     // use case

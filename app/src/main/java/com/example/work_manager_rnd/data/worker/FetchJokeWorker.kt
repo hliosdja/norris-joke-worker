@@ -7,14 +7,13 @@ import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.example.work_manager_rnd.domain.usecase.GetJokeUseCase
 import kotlinx.serialization.json.Json
-import org.koin.java.KoinJavaComponent.inject
+import org.koin.core.component.KoinComponent
 
 class FetchJokeWorker(
     context: Context,
-    params: WorkerParameters
-): CoroutineWorker(context, params) {
-
-    private val getJokeUseCase: GetJokeUseCase by inject(GetJokeUseCase::class.java)
+    params: WorkerParameters,
+    private val getJokeUseCase: GetJokeUseCase
+): CoroutineWorker(context, params), KoinComponent {
 
     override suspend fun doWork(): Result {
         return try {
